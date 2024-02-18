@@ -1,0 +1,862 @@
+{
+	"info": {
+		"_postman_id": "fc9a34e8-aa42-496a-a7a7-409392e2cf9f",
+		"name": "Assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"item": [
+				{
+					"name": "create user - Blank Form",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b28c1952-aadb-49b9-980b-a219acf022b6",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0139860e-2bb1-4563-b022-cde3fb7c8d24",
+								"exec": [
+									"pm.test(\"Response status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"field and message are present in the response body\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    jsonData.forEach(function(error) {\r",
+									"        pm.expect(error.field).to.exist;\r",
+									"        pm.expect(error.message).to.exist;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "b665036a-0641-432e-b367-df4e61618fd0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\":\"\", \r\n\"gender\":\"\", \r\n\"email\":\"\", \r\n\"status\":\"\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "create user- Blank Email",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b28c1952-aadb-49b9-980b-a219acf022b6",
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0139860e-2bb1-4563-b022-cde3fb7c8d24",
+								"exec": [
+									"pm.test(\"Response status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each element in the response array has field and message properties\", function () {\r",
+									"    pm.response.json().forEach(function(element) {\r",
+									"        pm.expect(element).to.have.property('field');\r",
+									"        pm.expect(element).to.have.property('message');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response array has at least one element\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an('array').that.is.not.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "ee71483c-b549-4e2a-b862-337bb5358b07",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\":\"lukman olabanjo\", \r\n\"gender\":\"male\", \r\n\"email\":\"\", \r\n\"status\":\"active\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "create user - Invalid Credentials",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b28c1952-aadb-49b9-980b-a219acf022b6",
+								"exec": [
+									"pm.globals.set(\"ran\", _.random(100, 999));\r",
+									"// Pre-request Script\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0139860e-2bb1-4563-b022-cde3fb7c8d24",
+								"exec": [
+									"pm.test(\"Response status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Each element in the response array has field and message properties\", function () {\r",
+									"    pm.response.json().forEach(function(error) {\r",
+									"        pm.expect(error).to.have.property('field');\r",
+									"        pm.expect(error).to.have.property('message');\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "29b43b4e-cab2-4cee-b2ed-e9a209fc4ea4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\":\"lukman olabanjo\", \r\n\"gender\":\"male\", \r\n\"email\":\"{{ran}}yopmail.com\", \r\n\"status\":\"active\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "b28c1952-aadb-49b9-980b-a219acf022b6",
+								"exec": [
+									"pm.globals.set(\"ran\", _.random(100, 999));\r",
+									"// Pre-request Script\r",
+									"pm.environment.set(\"initialUserId\", pm.collectionVariables.get(\"userId\"));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0139860e-2bb1-4563-b022-cde3fb7c8d24",
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"id is present in the response body\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.exist;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"id is stored in collection variable 'userId'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"userId\", jsonData.id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"id is present in the response body\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.exist;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"id is stored in collection variable 'userId'\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"userId\", jsonData.id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"gender is present in the response body\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.gender).to.exist;\r",
+									"});\r",
+									"pm.test(\"status is present in the response body\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.status).to.equal(\"active\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "710d1e6f-59f7-466a-a04c-cafff9de7a67",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"name\":\"{{$randomFullName}}\", \r\n\"gender\":\"male\", \r\n\"email\":\"{{ran}}@yopmail.com\", \r\n\"status\":\"active\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				}
+			],
+			"id": "8db97413-b622-490c-b501-41a955115c88"
+		},
+		{
+			"name": "Update User",
+			"item": [
+				{
+					"name": "update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.email).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.name).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.status).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseData.gender).to.exist.and.to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Message is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.message).to.not.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"// pm.test(\"Verify that the userId in the response matches the requested userId\", function () {\r",
+									"//     const requestedUserId = pm.variables.get(\"userId\");\r",
+									"//     const responseData = pm.response.json();\r",
+									"\r",
+									"//     pm.expect(responseData).to.be.an('object');\r",
+									"//     pm.expect(responseData.id).to.equal(parseInt(requestedUserId));\r",
+									"// });\r",
+									"\r",
+									"\r",
+									"\r",
+									"var responseJSON = pm.response.json();\r",
+									"\r",
+									"// Test the response status code\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Test the response body structure and values\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    pm.expect(responseJSON).to.be.an('object');\r",
+									"    pm.expect(responseJSON.email).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseJSON.name).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseJSON.status).to.exist.and.to.be.a('string');\r",
+									"    pm.expect(responseJSON.id).to.exist.and.to.be.a('number');\r",
+									"    pm.expect(responseJSON.gender).to.exist.and.to.be.a('string');\r",
+									"});\r",
+									"\r",
+									"// Test that the message property does not exist\r",
+									"pm.test(\"Message is a non-empty string\", function () {\r",
+									"    pm.expect(responseJSON.message).to.not.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"id": "2d24c4a6-42e8-46c5-8c1c-cdc6ad85d891"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"ran\", _.random(100, 999));"
+								],
+								"type": "text/javascript",
+								"id": "da085005-473a-4b5e-9c3c-231b34ad6012"
+							}
+						}
+					],
+					"id": "1b89e22c-497f-405e-a89f-c2e65cde96f0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\":\"Allasani Peddana\", \r\n\"email\":\"tes{{ran}}@yopmail.com\", \r\n\"status\":\"active\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users/{{userId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "update user - Blank Email",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d24c4a6-42e8-46c5-8c1c-cdc6ad85d891",
+								"exec": [
+									"pm.test(\"Response status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    const responseJSON = pm.response.json();\r",
+									"    pm.expect(responseJSON).to.be.an('array');\r",
+									"    responseJSON.forEach(function(data) {\r",
+									"        pm.expect(data.field).to.exist.and.to.be.a('string');\r",
+									"        pm.expect(data.message).to.exist.and.to.be.a('string');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Message is a non-empty string\", function () {\r",
+									"    const responseJSON = pm.response.json();\r",
+									"    responseJSON.forEach(function(data) {\r",
+									"        pm.expect(data.message).to.be.a('string').and.to.not.be.empty;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da085005-473a-4b5e-9c3c-231b34ad6012",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "e4461433-2944-4bb4-99a9-b68f6d0be46c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\":\"Allasani Peddana\", \r\n\"email\":\"\", \r\n\"status\":\"active\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users/{{userId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "update user- Invalid Credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d24c4a6-42e8-46c5-8c1c-cdc6ad85d891",
+								"exec": [
+									"pm.test(\"Response status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    const responseJSON = pm.response.json();\r",
+									"    pm.expect(responseJSON).to.be.an('array');\r",
+									"    responseJSON.forEach(function(data) {\r",
+									"        pm.expect(data.field).to.exist.and.to.be.a('string');\r",
+									"        pm.expect(data.message).to.exist.and.to.be.a('string');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Message is a non-empty string\", function () {\r",
+									"    const responseJSON = pm.response.json();\r",
+									"    responseJSON.forEach(function(data) {\r",
+									"        pm.expect(data.message).to.be.a('string').and.to.not.be.empty;\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da085005-473a-4b5e-9c3c-231b34ad6012",
+								"exec": [
+									"pm.globals.set(\"ran\", _.random(100, 999));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "49d40e30-0a44-4adf-a962-e075b9aff7f8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\":\"Allasani Peddana\", \r\n\"email\":\"tes{{ran}}yopmail.com\", \r\n\"status\":\"active\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users/{{userId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "update user - Blank Form",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d24c4a6-42e8-46c5-8c1c-cdc6ad85d891",
+								"exec": [
+									"// Test the response status code",
+									"pm.test(\"Response status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"// Test the response body structure and values",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseJSON = pm.response.json();",
+									"    pm.expect(responseJSON).to.be.an('array');",
+									"    responseJSON.forEach(function(error) {",
+									"        pm.expect(error).to.be.an('object');",
+									"        pm.expect(error.field).to.exist.and.to.be.a('string');",
+									"        pm.expect(error.message).to.exist.and.to.be.a('string');",
+									"    });",
+									"});",
+									"",
+									"// Test that the message property does not exist",
+									"pm.test(\"Message is a non-empty string\", function () {",
+									"    const responseJSON = pm.response.json();",
+									"    responseJSON.forEach(function(error) {",
+									"        pm.expect(error.message).to.exist.and.to.be.a('string');",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "da085005-473a-4b5e-9c3c-231b34ad6012",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "82f0f31e-7c95-415b-af3a-e682612fe347",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"name\":\"\", \r\n\"email\":\"\", \r\n\"status\":\"\"\r\n}"
+						},
+						"url": "{{baseUrl}}/users/{{userId}}"
+					},
+					"response": []
+				}
+			],
+			"id": "852fd8ae-7faf-477e-8487-efb7bcb7dec5"
+		},
+		{
+			"name": "List User",
+			"item": [
+				{
+					"name": "list user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c547fd9b-7f99-4e78-8e80-fc76588d0da7",
+								"exec": [
+									"\r",
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response is an array with at least one element\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array').and.to.have.lengthOf.at.least(1);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Email in each object is in a valid email format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"\r",
+									"    responseData.forEach(function (user) {\r",
+									"        pm.expect(user.email).to.match(/^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$/);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Name in each object is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"\r",
+									"    responseData.forEach(function (user) {\r",
+									"        pm.expect(user.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has the required fields\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+									"\r",
+									"    responseData.forEach(function (user) {\r",
+									"        pm.expect(user).to.have.property('id');\r",
+									"        pm.expect(user).to.have.property('name');\r",
+									"        pm.expect(user).to.have.property('email');\r",
+									"        pm.expect(user).to.have.property('gender');\r",
+									"        pm.expect(user).to.have.property('status');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Each ID is a non-negative integer\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"\r",
+									"    responseData.forEach(function (user) {\r",
+									"        pm.expect(user.id).to.be.a('number').and.to.be.at.least(0, \"ID should be a non-negative integer\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Gender in each object is either 'male' or 'female'\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"\r",
+									"    responseData.forEach(function (user) {\r",
+									"        pm.expect(user.gender).to.be.oneOf(['male', 'female']);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status in each object is either 'active' or 'inactive'\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"\r",
+									"    responseData.forEach(function (user) {\r",
+									"        pm.expect(user.status).to.be.oneOf(['active', 'inactive']);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "787f07e0-e8c6-442c-9a0e-d569245bfebf",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"url": "{{baseUrl}}/users"
+					},
+					"response": []
+				}
+			],
+			"id": "d2c4d302-7ad8-40c9-ab91-b0ae9329616f"
+		},
+		{
+			"name": "Delete User",
+			"item": [
+				{
+					"name": "delete user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"pm.test(\"Successful Delete request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([204, 202]);\r",
+									"});\r",
+									"pm.test(\"Status code name has string\", function () {\r",
+									"    pm.response.to.have.status(\"No Content\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"id": "5013d5b8-5a46-4797-88f2-a82c662fcdb2"
+							}
+						}
+					],
+					"id": "b50e8769-af68-4c29-86ea-1baebda965b5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{Access_Token}}"
+							}
+						],
+						"url": "{{baseUrl}}/users/{{userId}}"
+					},
+					"response": []
+				}
+			],
+			"id": "b1182d88-6721-40d4-a325-939564eb772a"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "c7c8f2aa-094b-43b2-a2bd-6ba9e17ef879"
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				],
+				"id": "a9982ee7-f0bf-4dff-93ed-c6e54502dabc"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://gorest.co.in/public/v2"
+		},
+		{
+			"key": "Access_Token",
+			"value": "9987355ab9d384fe57f92728a5b789c835e373965d80be18c91427c3e536234b"
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "initialUserId",
+			"value": ""
+		}
+	]
+}
