@@ -40,11 +40,6 @@ jobs:
         if: always()
         continue-on-error: true
         run: sleep 10
-      # - name: Find latest folder and update Allure Report Title
-      #   run: |
-      #     latest_folder=$(find allure-report -type d -name '[0-9]*' | sort -n | tail -n 1)
-      #     echo "Latest Folder: $latest_folder"
-      #     sed -i 's/<title>Allure Report<\/title>/<title>[Assessment] - API Quality Readiness<\/title>/' "$latest_folder/index.html"
       - name: Update Allure Report Widget Title
         continue-on-error: true
         if: steps.build.outcome == 'success'
@@ -59,7 +54,7 @@ jobs:
             # Debug output to check the content before and after the sed command
             cat "$summary_path"  # Print content before
             # Use sed to update the content within the <h2> element
-            sudo sed -i 's/Allure Report/Assessment - API Quality Readiness/' "$summary_path"
+            sudo sed -i 's/Allure Report/Demo API - API Quality Readiness/' "$summary_path"
             cat "$summary_path"  # Print content after
           else
             echo "Error: summary.json not found in the latest folder."
