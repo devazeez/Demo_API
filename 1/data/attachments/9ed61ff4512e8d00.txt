@@ -1,0 +1,6 @@
+{
+ "name":"lukman olabanjo", 
+"gender":"male", 
+"email":"662yopmail.com", 
+"status":"active"
+}

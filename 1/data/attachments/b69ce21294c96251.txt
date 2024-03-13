@@ -1,0 +1,5 @@
+{
+"name":"Allasani Peddana", 
+"email":"tes608@yopmail.com", 
+"status":"active"
+}
